@@ -31,11 +31,11 @@ const NavMenu = ({ cart, categories, authData }) => {
           Home
         </NavLink>
       </li>
-      <li>
-        <span className="nv-right-link-cat" onClick={() => { setShowCat(!showCat) }}>
+      <li onMouseEnter={() => { setShowCat(true) }} >
+        <span className="nv-right-link-cat" onClick={() => { setShowCat(!showCat) }} >
           Categories <HiArrowCircleDown className="nv-right-link-cat-icon" />
           <HiArrowCircleRight className="nv-right-link-cat-icon-mob" />
-          {showCat ? <ul>
+          {showCat ? <ul onMouseMoveCapture={() => { setShowCat(true) }} onMouseLeave={() => { setShowCat(false) }} >
             <li>
               <NavLink to="/categories"
                 className="nv-right-link-cats">
@@ -55,23 +55,25 @@ const NavMenu = ({ cart, categories, authData }) => {
           </ul> : ""}
         </span>
       </li>
-      {!authData.user ? (
-        <><li>
-          <NavLink to="/register" className="nv-right-link">
-            Register
-          </NavLink>
-        </li>
-          <li >
-            <NavLink to="/login" className="nv-right-link">
-              LogIn
+      {
+        !authData.user ? (
+          <><li>
+            <NavLink to="/register" className="nv-right-link">
+              Register
             </NavLink>
           </li>
-        </>
-      ) : (<> <li >
-        <NavLink to="/login" className="nv-right-link" onClick={handleLogout}>
-          LogOut
-        </NavLink>
-      </li></>)}
+            <li >
+              <NavLink to="/login" className="nv-right-link">
+                LogIn
+              </NavLink>
+            </li>
+          </>
+        ) : (<> <li >
+          <NavLink to="/login" className="nv-right-link" onClick={handleLogout}>
+            LogOut
+          </NavLink>
+        </li></>)
+      }
       <li >
         <Badge count={cart?.length} showZero>
           <NavLink to="/cart" className='nv-right-link'>
@@ -79,7 +81,7 @@ const NavMenu = ({ cart, categories, authData }) => {
           </NavLink>
         </Badge>
       </li>
-    </ul>
+    </ul >
   )
 }
 
